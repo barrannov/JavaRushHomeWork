@@ -1,7 +1,11 @@
 package com.javarush.test.level17.lesson10.home09;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /* Транзакционность
 Сделать метод joinData транзакционным, т.е. если произошел сбой, то данные не должны быть изменены.
@@ -19,10 +23,31 @@ public class Solution {
     public static List<String> allLines = new ArrayList<String>();
     public static List<String> forRemoveLines = new ArrayList<String>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        Scanner scanner = new Scanner(System.in);
+        BufferedReader bufferedReader =
+                new BufferedReader(new InputStreamReader(new FileInputStream(scanner.nextLine())));
+        BufferedReader bufferedReader2 =
+                new BufferedReader(new InputStreamReader(new FileInputStream(scanner.nextLine())));
+
+
+        while (bufferedReader.ready()){
+            allLines.add(bufferedReader.readLine());
+        }
+        while (bufferedReader2.ready()){
+            forRemoveLines.add(bufferedReader2.readLine());
+        }
+        new Solution().joinData();
+
     }
 
-    public void joinData () throws CorruptedDataException {
-
+    public  void joinData () throws CorruptedDataException {
+if (allLines.containsAll(forRemoveLines)){
+    allLines.removeAll(forRemoveLines);
+}
+else {
+    allLines.removeAll(forRemoveLines);
+    throw new CorruptedDataException();
+}
     }
 }

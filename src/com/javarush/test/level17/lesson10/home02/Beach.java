@@ -5,15 +5,15 @@ package com.javarush.test.level17.lesson10.home02;
 */
 
 public class Beach implements Comparable<Beach>{
-
-    @Override
-    public int compareTo(Beach o) {
-        return 0;
-    }
-
     private String name;      //название
     private float distance;   //расстояние
     private int quality;    //качество
+
+    @Override
+    public synchronized int compareTo(Beach o) {
+        return 0;
+
+    }
 
     public Beach(String name, float distance, int quality) {
         this.name = name;
